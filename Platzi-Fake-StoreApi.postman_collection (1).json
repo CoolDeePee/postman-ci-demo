@@ -1,0 +1,550 @@
+{
+	"info": {
+		"_postman_id": "b0b9aaa2-dd00-44d9-aad8-2338d10bab43",
+		"name": "Platzi-Fake-StoreApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26374865"
+	},
+	"item": [
+		{
+			"name": "Get all product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Check if response body contains \\'Classic Heather Gray Hoodie\\'', function () {\r",
+							"    pm.expect(pm.response.text()).to.include('Classic Heather Gray Hoodie');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content type is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/products",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a single product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Check if response body contains \\'Classic Grey Hooded Sweatshirt\\'', function () {\r",
+							"    pm.expect(pm.response.text()).to.include('Classic Grey Hooded Sweatshirt');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content type is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/products/4",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"products",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Check if response body contains \\'New Product\\'', function () {\r",
+							"    pm.expect(pm.response.text()).to.include('New Product');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response status code is 201', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"})\r",
+							"\r",
+							"pm.test('Content type is application/json', function () {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Title should not be empty\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData.title).to.exist.and.to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Employee salary and age are non-negative numbers\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"  \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.price).to.be.a('number').and.to.be.at.least(0, \"Price should be non-negative\");\r",
+							"});\r",
+							"pm.test(\"Images array should not be empty\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.images).to.be.an('array').that.is.not.empty;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Category object contains required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.category).to.be.an('object');\r",
+							"    pm.expect(responseData.category).to.include.all.keys('id', 'name', 'image', 'creationAt', 'updatedAt');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"ID should be a positive integer\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.id).to.be.a('number');\r",
+							"    pm.expect(responseData.id).to.be.above(0, \"ID should be a positive integer\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"New Product\",\r\n  \"price\": 10,\r\n  \"description\": \"A description\",\r\n  \"categoryId\": 1,\r\n  \"images\": [\"https://placeimg.com/640/480/any\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/products/",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Check if response body contains \\'Bags and Shoes\\'', function () {\r",
+							"    pm.expect(pm.response.text()).to.include('Bags and Shoes');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Response Content-Type header is 'application/json'\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include('application/json');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Id must be a non-negative integer\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.id).to.be.a('number');\r",
+							"    pm.expect(responseData.id).to.be.at.least(0);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Price is a positive number\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.price).to.be.a('number').above(0);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Description is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.description).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Description should not be empty\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Images array is present and not empty\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData).to.be.an('object');\r",
+							"  pm.expect(responseData.images).to.exist.and.to.be.an('array').that.is.not.empty;\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Bags and Shoes\",\r\n  \"price\": 1000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/products/4",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"products",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is an object with specific properties\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"    pm.expect(jsonData).to.have.property('id');\r",
+							"    pm.expect(jsonData).to.have.property('title');\r",
+							"    pm.expect(jsonData).to.have.property('price');\r",
+							"    pm.expect(jsonData).to.have.property('description');\r",
+							"    pm.expect(jsonData).to.have.property('images');\r",
+							"    pm.expect(jsonData).to.have.property('category');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each image in the images array is a non-empty string\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.images.forEach(function(image) {\r",
+							"        pm.expect(image).to.be.a('string').and.to.not.be.empty;\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Price is a non-negative number\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.price).to.be.a('number').and.to.be.at.least(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Id is a non-negative integer\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.id).to.be.a('number').and.to.be.at.least(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Title is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.title).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Description is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.description).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Description should not be empty\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Category object has the required properties\", function () {\r",
+							"    const responseData = pm.response.json().category;\r",
+							"    pm.expect(responseData).to.exist.and.to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('id');\r",
+							"    pm.expect(responseData).to.have.property('name');\r",
+							"    pm.expect(responseData).to.have.property('image');\r",
+							"    pm.expect(responseData).to.have.property('creationAt');\r",
+							"    pm.expect(responseData).to.have.property('updatedAt');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Images array must contain at least one image\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.images).to.be.an('array').that.is.not.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Category ID is a non-negative integer\", function () {\r",
+							"    const responseData = pm.response.json().category;\r",
+							"    pm.expect(responseData.id).to.be.a('number').and.to.be.at.least(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Category name is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json().category;\r",
+							"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Category name should not be empty\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Images array must contain valid image URLs\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    responseData.images.forEach(function(imageUrl) {\r",
+							"        pm.expect(imageUrl).to.match(/^https?:\\/\\/(?:[a-z0-9-]+\\.)+[a-z]{2,6}(?:\\/[^\\/#?]+)+\\.(?:jpe?g|gif|png)$/i);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Category image is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json().category;\r",
+							"    pm.expect(responseData.image).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Category image should not be empty\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Category name is in a valid format\", function () {\r",
+							"    const responseData = pm.response.json().category;\r",
+							"    pm.expect(responseData.name).to.be.a('string').and.to.match(/[a-zA-Z]+/, \"Category name should be a valid string format\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Price is formatted as a currency\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.price).to.match(/^\\$?\\d+(\\.\\d{1,2})?$/, \"Price should be formatted as a currency\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that the images array does not contain duplicate URLs\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    responseData.images.forEach(function(image, index) {\r",
+							"        pm.expect(responseData.images.indexOf(image)).to.equal(index, \"Duplicate URL found in images array\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/products/4",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"products",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pagination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Title is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"    responseData.forEach(function (product) {\r",
+							"        pm.expect(product.title).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Price is a positive number\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"\r",
+							"  responseData.forEach(function(product) {\r",
+							"    pm.expect(product.price).to.be.above(0);\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Images array should not be empty\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"    responseData.forEach(function(product) {\r",
+							"        pm.expect(product.images).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Images array should not be empty\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Creation date is in a valid date format\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"\r",
+							"  responseData.forEach(function(product) {\r",
+							"    pm.expect(product.creationAt).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/);\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Category name is a non-empty string\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData).to.be.an('array');\r",
+							"  responseData.forEach(function(product) {\r",
+							"    pm.expect(product.category.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Category object contains expected fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+							"\r",
+							"    responseData.forEach(function(product) {\r",
+							"        pm.expect(product.category).to.be.an('object').that.includes.all.keys('id', 'name', 'image', 'creationAt', 'updatedAt');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Id field is a non-negative integer for each product\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"    responseData.forEach(function(product) {\r",
+							"        pm.expect(product.id).to.be.a('number').and.to.be.at.least(0);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Description is a non-empty string for each product\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"    responseData.forEach(function(product) {\r",
+							"        pm.expect(product.description).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Description should not be empty\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"UpdatedAt is in a valid date format for each product\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"    responseData.forEach(function(product) {\r",
+							"        pm.expect(product.updatedAt).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/, \"UpdatedAt should be in valid date format\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Id field is unique for each product\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"    let idSet = new Set();\r",
+							"    responseData.forEach(function(product) {\r",
+							"        pm.expect(idSet.has(product.id)).to.be.false;\r",
+							"        idSet.add(product.id);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Images array contains only valid image URLs for each product\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+							"\r",
+							"    responseData.forEach(product => {\r",
+							"        pm.expect(product.images).to.be.an('array').that.is.not.empty;\r",
+							"        \r",
+							"        product.images.forEach(image => {\r",
+							"            pm.expect(image).to.match(/^https?:\\/\\/.*\\.(png|jpg|jpeg|gif)$/);\r",
+							"        });\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/products?offset=0&limit=10",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "10",
+							"description": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseURL",
+			"value": "https://api.escuelajs.co/api/v1"
+		}
+	]
+}
